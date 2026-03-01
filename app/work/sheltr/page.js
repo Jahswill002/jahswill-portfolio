@@ -20,8 +20,13 @@ export default function SheltrPage() {
           <span>Nigeria</span>
           <span>2024</span>
           <span>
-            <a href="https://sheltrng.vercel.app" target="_blank" rel="noopener noreferrer" className="text-accent underline">
-              Live
+            <a
+              href="https://sheltrng.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-4 py-2 bg-accent text-bg text-xs uppercase tracking-widest rounded"
+            >
+              View live site
             </a>
           </span>
         </div>
