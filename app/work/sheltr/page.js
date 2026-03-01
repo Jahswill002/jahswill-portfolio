@@ -19,7 +19,11 @@ export default function SheltrPage() {
           <span>InsurTech</span>
           <span>Nigeria</span>
           <span>2024</span>
-          <span>Live</span>
+          <span>
+            <a href="https://sheltrng.vercel.app" target="_blank" rel="noopener noreferrer" className="text-accent underline">
+              Live
+            </a>
+          </span>
         </div>
         <p className="text-base" style={{ color: 'var(--muted)' }}>
           Insurance processes in Nigeria are fragmented and opaque. SME owners — who face real business risk —
