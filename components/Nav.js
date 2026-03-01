@@ -36,11 +36,22 @@ export default function Nav() {
       }}
     >
       <div className="flex items-center justify-between px-5 py-4 max-w-6xl mx-auto w-full md:px-8">
-        {/* Logo */}
+        {/* Logo with profile picture */}
         <a
           href="#hero"
-          className="text-xl font-serif font-normal transition-colors hover:text-accent"
+          className="flex items-center text-xl font-serif font-normal transition-colors hover:text-accent"
         >
+          {/*
+            Drop your profile photo (e.g. from LinkedIn) into `public/profile.jpg`
+            or update the `src` below with the direct LinkedIn image URL.
+          */}
+          <img
+            src="/profile.jpg"
+            alt="Jahswill"
+            width={32}
+            height={32}
+            className="rounded-full mr-2"
+          />
           Jahswill
         </a>
 

@@ -16,8 +16,16 @@ export default function Footer() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="font-serif text-lg"
+            className="flex items-center font-serif text-lg"
           >
+            {/* same image as navbar to keep branding consistent */}
+            <img
+              src="/profile.jpg"
+              alt="Jahswill"
+              width={28}
+              height={28}
+              className="rounded-full mr-2"
+            />
             Jahswill
           </motion.div>
 
