@@ -16,6 +16,9 @@
     "framer-motion": "^10.16.4",
     "lucide-react": "^0.292.0"
   },
+  "dependencies": {
+    "nodemailer": "^6.9.5"
+  },
   "devDependencies": {
     "tailwindcss": "^3.3.0",
     "postcss": "^8.4.31",

@@ -11,7 +11,7 @@ export default function Contact() {
     email: '',
     message: '',
   })
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [status, setStatus] = useState('idle') // 'idle' | 'sending' | 'success' | 'error'
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -21,13 +21,28 @@ export default function Contact() {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setIsSubmitted(true)
-    setTimeout(() => {
-      setFormData({ name: '', email: '', message: '' })
-      setIsSubmitted(false)
-    }, 3000)
+    setStatus('sending')
+
+    const formPayload = new FormData(e.target)
+
+    try {
+      const res = await fetch('https://formspree.io/f/mzdaqger', {
+        method: 'POST',
+        body: formPayload,
+        headers: { Accept: 'application/json' },
+      })
+
+      if (res.ok) {
+        setStatus('success')
+        setFormData({ name: '', email: '', message: '' })
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
   }
 
   const socialLinks = [
@@ -134,6 +149,7 @@ export default function Contact() {
                 value={formData.name}
                 onChange={handleChange}
                 required
+                placeholder="What should I call you?"
                 className="w-full px-4 py-3 border rounded transition-colors focus:outline-none"
                 style={{
                   borderColor: 'var(--line)',
@@ -155,6 +171,7 @@ export default function Contact() {
                 value={formData.email}
                 onChange={handleChange}
                 required
+                placeholder="your@email.com"
                 className="w-full px-4 py-3 border rounded transition-colors focus:outline-none"
                 style={{
                   borderColor: 'var(--line)',
@@ -176,6 +193,7 @@ export default function Contact() {
                 onChange={handleChange}
                 required
                 rows="5"
+                placeholder="Tell me about the problem you're working on..."
                 className="w-full px-4 py-3 border rounded transition-colors focus:outline-none resize-none"
                 style={{
                   borderColor: 'var(--line)',
@@ -189,16 +207,39 @@ export default function Contact() {
             <motion.button
               variants={itemVariants}
               type="submit"
+              disabled={status === 'sending' || status === 'success'}
               className="w-full px-6 py-3 uppercase text-xs font-medium tracking-widest flex items-center justify-center gap-3 transition-all duration-200"
               style={{
-                backgroundColor: isSubmitted ? '#2D8A4E' : 'var(--ink)',
+                backgroundColor:
+                  status === 'success' ? '#2D8A4E' :
+                  status === 'error' ? '#C8552A' :
+                  'var(--ink)',
                 color: 'var(--bg)',
+                opacity: status === 'sending' ? 0.7 : 1,
+                cursor: status === 'sending' ? 'not-allowed' : 'pointer',
               }}
-              whileHover={!isSubmitted ? { y: -2 } : {}}
-              disabled={isSubmitted}
+              whileHover={status === 'idle' ? { y: -2 } : {}}
             >
-              {isSubmitted ? "Thanks! I'll be in touch." : <>Send Message <ArrowRight size={16} /></>}
+              {status === 'idle' && <><span>Send Message</span> <ArrowRight size={16} /></>}
+              {status === 'sending' && <span>Sending...</span>}
+              {status === 'success' && <span>✓ Message sent — I'll be in touch!</span>}
+              {status === 'error' && <span>Something went wrong. Try again.</span>}
             </motion.button>
+
+            {/* Error fallback */}
+            {status === 'error' && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-xs text-center"
+                style={{ color: 'var(--muted)' }}
+              >
+                You can also reach me directly at{' '}
+                <a href="mailto:Jahswilljacobdlp23@gmail.com" style={{ color: 'var(--accent)' }}>
+                  Jahswilljacobdlp23@gmail.com
+                </a>
+              </motion.p>
+            )}
           </motion.form>
         </div>
       </div>
