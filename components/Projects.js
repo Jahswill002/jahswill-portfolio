@@ -64,6 +64,64 @@ export default function Projects() {
       year: 2024,
       href: '/work/insurance-platform',
     },
+    {
+      index: '03',
+      title: 'The Eye Doctors',
+      subtitle: 'Expert eye care clinic website — Lagos',
+      description:
+        'Built the full website for The Eye Doctors, a Lagos-based eye care clinic, as a solo project to test and demonstrate my end-to-end building skills. From design decisions to deployment — no team, no handoff. A proof of what I can ship independently.',
+      tags: ['Web Development', 'Healthcare', 'Solo Build'],
+      contributionPills: [
+        'Solo build',
+        'Full website',
+        'Vercel deployment',
+        'UI design',
+        'Responsive layout',
+        'Client-ready',
+      ],
+      status: 'Live',
+      year: 2025,
+      href: 'https://the-eye-doctors.vercel.app/',
+    },
+    {
+      index: '04',
+      title: 'Docket — Web',
+      subtitle: 'Legal case management platform for Nigerian law firms',
+      description:
+        'UI/UX Lead on the TechCrush program capstone project. Led a 7-person design team to build Docket — a legal case management platform for Nigerian law firms. I owned the full design system, role-based user flows across three roles (Senior Partner, Associate, Secretary), and key screen designs. The design team handed off to developers who shipped the live product.',
+      tags: ['Legal Tech', 'UI/UX Lead', 'Team Project', 'TechCrush Capstone'],
+      contributionPills: [
+        'UI/UX Lead',
+        'Full design system',
+        'Role-based flows',
+        '7-person design team',
+        'Figma',
+        'Design handoff',
+        'Partner / Associate / Secretary roles',
+      ],
+      status: 'Live',
+      year: 2025,
+      href: 'https://niimie.github.io/Group_1-DOCKET-legal-case-management-platform/login/index.html',
+    },
+    {
+      index: '05',
+      title: 'Docket — Mobile',
+      subtitle: 'Mobile companion app for the Docket legal platform',
+      description:
+        'The mobile experience for Docket, designed as part of the same TechCrush capstone sprint. I led UI/UX design for the mobile flows — translating the role-based case management system into a touch-first experience for lawyers on the go. Built by the development team on Expo and deployed to production.',
+      tags: ['Legal Tech', 'Mobile', 'UI/UX Lead', 'TechCrush Capstone'],
+      contributionPills: [
+        'UI/UX Lead',
+        'Mobile UX flows',
+        'Role-based design',
+        'Expo',
+        'Touch-first experience',
+        'Design to dev handoff',
+      ],
+      status: 'Live',
+      year: 2025,
+      href: 'https://expo.dev/accounts/frankifeanyi/projects/Docket/builds/9fecac2b-f7e9-4eee-bef6-e0773ee6bdda',
+    },
   ]
 
   return (
@@ -85,7 +143,7 @@ export default function Projects() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <h2 className="font-serif">Products I've shaped & shipped.</h2>
             <p className="text-xs uppercase tracking-wider" style={{ color: 'var(--muted)' }}>
-              3 case studies
+              6 projects
             </p>
           </div>
         </motion.div>
