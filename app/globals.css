@@ -1,23 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@6..72,300;6..72,400;6..72,500&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  /* Base — light */
   --bg: #F7F5F0;
+  --surface: #FFFFFF;
   --ink: #1A1816;
   --muted: #7A7570;
-  --accent: #C8552A;
   --line: #E2DED8;
   --card: #FFFFFF;
   --ink-inv: #F7F5F0;
-  --font-serif: 'Fraunces', Georgia, serif;
-  --font-sans: 'DM Sans', sans-serif;
-  
+
+  /* Spectrum discipline accents */
+  --pm:     #1D9E75;   /* teal  — Product Management */
+  --design: #D85A30;   /* coral — Design & UX */
+  --build:  #EF9F27;   /* amber — Building & Execution */
+
+  /* Legacy single accent → maps to design coral for backward compat */
+  --accent: #D85A30;
+
+  /* Typography */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body:    'Inter', sans-serif;
+
   color-scheme: light;
 }
 
+/* ── Reset ── */
 * {
   margin: 0;
   padding: 0;
@@ -29,62 +41,84 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   background-color: var(--bg);
   color: var(--ink);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.7;
+  font-size: 1rem;
 }
 
+/* ── Typography ── */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
-  font-weight: 300;
+  font-family: var(--font-display);
+  font-weight: 500;
   letter-spacing: -0.02em;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 h1 {
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 600;
 }
 
 h2 {
-  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600;
 }
 
 h3 {
-  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  font-weight: 500;
 }
 
 em {
   font-style: italic;
   color: var(--accent);
-  font-weight: 400;
+  font-weight: 500;
 }
 
-/* Section labels */
+strong {
+  font-weight: 600;
+}
+
+/* ── Section labels ── */
 .section-label {
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
-  font-weight: 400;
+  font-weight: 500;
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1.5rem;
-  margin-top: 0;
+  margin-bottom: 1.25rem;
 }
 
 .section-label::before {
   content: '';
   display: inline-block;
-  width: 28px;
+  width: 24px;
   height: 1px;
   background-color: currentColor;
+  flex-shrink: 0;
 }
 
-/* Interactive elements */
+/* ── Discipline colour helpers ── */
+.accent-pm     { color: var(--pm); }
+.accent-design { color: var(--design); }
+.accent-build  { color: var(--build); }
+
+.bg-pm         { background-color: var(--pm); }
+.bg-design     { background-color: var(--design); }
+.bg-build      { background-color: var(--build); }
+
+.border-pm     { border-color: var(--pm); }
+.border-design { border-color: var(--design); }
+.border-build  { border-color: var(--build); }
+
+/* ── Interactive elements ── */
 button, a[role="button"] {
   cursor: pointer;
   transition: all 0.2s ease;
@@ -101,14 +135,28 @@ button:focus-visible {
   outline-offset: 4px;
 }
 
-/* Smooth transitions */
+/* ── Layout ── */
 main {
   min-height: 100vh;
 }
 
-/* Responsive spacing */
+/* ── Status badge colours ── */
+.badge-live       { background-color: #DCFCE7; color: #15803D; }
+.badge-in-progress { background-color: #FEF9C3; color: #A16207; }
+.badge-concept    { background-color: #F1F5F9; color: #475569; }
+
+/* ── Responsive ── */
 @media (max-width: 768px) {
   body {
     font-size: 0.95rem;
+  }
+  h1 {
+    font-size: clamp(2rem, 8vw, 2.75rem);
+  }
+}
+
+@media (max-width: 375px) {
+  body {
+    font-size: 0.9rem;
   }
 }

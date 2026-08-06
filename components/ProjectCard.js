@@ -1,165 +1,201 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
+import { DISCIPLINES } from '@/lib/data'
+
+const STATUS_STYLES = {
+  Live:        { bg: '#DCFCE7', color: '#15803D' },
+  'In Progress': { bg: '#FEF9C3', color: '#A16207' },
+  Concept:     { bg: '#F1F5F9', color: '#475569' },
+}
 
 export default function ProjectCard({
-  index,
+  slug,
   title,
   subtitle,
+  oneLiner,
   description,
+  discipline,
   tags,
   contributionPills,
   status,
   year,
   href,
-  featured = false,
-})
-{
-  if (featured) {
+  liveUrl,
+  variant = 'default', // 'default' | 'featured' | 'index'
+}) {
+  const accentColor = DISCIPLINES[discipline]?.cssVar ?? 'var(--accent)'
+  const statusStyle = STATUS_STYLES[status] ?? STATUS_STYLES['Concept']
+
+  if (variant === 'featured') {
     return (
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="w-full rounded-lg overflow-hidden"
-        style={{ backgroundColor: 'var(--ink)' }}
+        className="relative rounded-xl overflow-hidden border transition-all duration-200 group"
+        style={{
+          backgroundColor: 'var(--card)',
+          borderColor: 'var(--line)',
+        }}
+        whileHover={{ y: -3 }}
       >
-        <div className="p-8 md:p-12 text-white">
-          {/* Badge */}
-          <div className="inline-block px-3 py-1 rounded text-xs font-medium mb-6" style={{ backgroundColor: 'var(--accent)' }}>
-            Featured
+        {/* Discipline colour top bar */}
+        <div className="h-1" style={{ backgroundColor: accentColor }} />
+
+        <div className="p-6 md:p-8">
+          {/* Status + year */}
+          <div className="flex items-center gap-3 mb-4">
+            <span
+              className="text-xs font-medium px-2.5 py-1 rounded-full"
+              style={{ backgroundColor: statusStyle.bg, color: statusStyle.color }}
+            >
+              {status}
+            </span>
+            <span className="text-xs" style={{ color: 'var(--muted)' }}>{year}</span>
           </div>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex flex-wrap gap-x-3 gap-y-1 mb-4">
             {tags.map((tag, idx) => (
-              <span key={idx} className="text-xs uppercase tracking-wider opacity-75">
+              <span
+                key={idx}
+                className="text-xs uppercase tracking-wider"
+                style={{ color: accentColor }}
+              >
                 {tag}
               </span>
             ))}
           </div>
 
-          {/* Title */}
-          <h2 className="font-serif text-3xl md:text-4xl mb-3">
-            {title} — Conceived. Designed. <em>Shipped.</em>
-          </h2>
+          <h3
+            className="text-xl md:text-2xl font-semibold mb-2"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
+            {title}
+          </h3>
 
-          {/* Subtitle */}
-          <p className="text-sm md:text-base mb-6 italic opacity-90">{subtitle}</p>
+          <p className="text-sm italic mb-4" style={{ color: 'var(--muted)' }}>
+            {subtitle}
+          </p>
 
-          {/* Status & Year */}
-          <div className="flex items-center gap-4 mb-6">
-            <span className="inline-block px-3 py-1 rounded text-xs font-medium" style={{ backgroundColor: '#2D8A4E', color: 'white' }}>
-              {status}
-            </span>
-            <span className="text-xs opacity-75">{year}</span>
-          </div>
+          <p className="text-sm leading-relaxed mb-6" style={{ color: 'var(--muted)' }}>
+            {oneLiner}
+          </p>
 
-          {/* Description */}
-          <p className="text-base leading-relaxed mb-8 opacity-90 max-w-2xl">{description}</p>
-
-          {/* Role Tags */}
-          <div className="flex flex-wrap gap-2 mb-8 text-xs uppercase tracking-wider opacity-75">
-            {tags.map((tag, idx) => (
-              <span key={idx}>{tag}</span>
-            ))}
-          </div>
-
-          {/* Contribution Pills */}
-          <div className="flex flex-wrap gap-2 mb-8">
-            {contributionPills.map((pill, idx) => (
-              <span key={idx} className="px-3 py-1 rounded text-xs border border-white opacity-50">
-                {pill}
-              </span>
-            ))}
-          </div>
-
-          {/* CTA */}
           <Link href={href}>
-            <motion.button
-              className="flex items-center gap-2 text-sm uppercase tracking-widest font-medium"
-              whileHover={{ x: 4 }}
+            <motion.span
+              className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-medium transition-colors"
+              style={{ color: 'var(--ink)' }}
+              whileHover={{ x: 3 }}
             >
-              View Case Study <ArrowRight size={16} />
-            </motion.button>
+              View Case Study <ArrowRight size={14} />
+            </motion.span>
           </Link>
         </div>
       </motion.div>
     )
   }
 
-  // Regular card
+  // ── Index / default card ──
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="p-6 md:p-8 rounded-lg border transition-all duration-200 group"
+      className="relative rounded-xl border overflow-hidden transition-all duration-200 group"
       style={{
         backgroundColor: 'var(--card)',
         borderColor: 'var(--line)',
       }}
-      whileHover={{ backgroundColor: 'var(--bg)' }}
+      whileHover={{ y: -3 }}
     >
-      {/* Index */}
-      <div className="text-xs uppercase tracking-wider mb-4" style={{ color: 'var(--muted)' }}>
-        {index}
-      </div>
+      {/* Discipline accent left border */}
+      <div
+        className="absolute left-0 top-0 bottom-0 w-1"
+        style={{ backgroundColor: accentColor }}
+      />
 
-      {/* Tags */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        {tags.map((tag, idx) => (
-          <span key={idx} className="text-xs" style={{ color: 'var(--muted)' }}>
-            {tag}
+      <div className="pl-6 pr-6 py-6 md:pl-8 md:pr-8 md:py-7">
+        {/* Status + year */}
+        <div className="flex items-center gap-3 mb-3">
+          <span
+            className="text-xs font-medium px-2.5 py-1 rounded-full"
+            style={{ backgroundColor: statusStyle.bg, color: statusStyle.color }}
+          >
+            {status}
           </span>
-        ))}
-      </div>
+          <span className="text-xs" style={{ color: 'var(--muted)' }}>{year}</span>
+        </div>
 
-      {/* Title */}
-      <h3 className="font-serif text-2xl mb-2">{title}</h3>
+        {/* Category tags */}
+        <div className="flex flex-wrap gap-x-3 gap-y-1 mb-3">
+          {tags.map((tag, idx) => (
+            <span
+              key={idx}
+              className="text-xs uppercase tracking-wider"
+              style={{ color: accentColor }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
 
-      {/* Subtitle */}
-      <p className="text-sm italic mb-4" style={{ color: 'var(--muted)' }}>
-        {subtitle}
-      </p>
-
-      {/* Status & Year */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="text-xs px-2 py-1 rounded" style={{ backgroundColor: 'var(--line)', color: 'var(--ink)' }}>
-          {status}
-        </span>
-        <span className="text-xs" style={{ color: 'var(--muted)' }}>
-          {year}
-        </span>
-      </div>
-
-      {/* Description */}
-      <p className="text-sm leading-relaxed mb-6" style={{ color: 'var(--muted)' }}>
-        {description}
-      </p>
-
-      {/* Contribution Pills */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        {contributionPills.slice(0, 3).map((pill, idx) => (
-          <span key={idx} className="text-xs px-2 py-1 rounded border" style={{ borderColor: 'var(--line)', color: 'var(--muted)' }}>
-            {pill}
-          </span>
-        ))}
-      </div>
-
-      {/* CTA */}
-      <Link href={href}>
-        <motion.button
-          className="flex items-center gap-2 text-xs uppercase tracking-widest font-medium"
-          whileHover={{ x: 2 }}
+        <h3
+          className="text-xl font-semibold mb-1.5"
+          style={{ fontFamily: 'var(--font-display)' }}
         >
-          View Case Study <ArrowRight size={14} />
-        </motion.button>
-      </Link>
+          {title}
+        </h3>
+
+        <p className="text-sm italic mb-3" style={{ color: 'var(--muted)' }}>
+          {subtitle}
+        </p>
+
+        <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--muted)' }}>
+          {description}
+        </p>
+
+        {/* Contribution pills */}
+        <div className="flex flex-wrap gap-2 mb-5">
+          {(contributionPills ?? []).slice(0, 4).map((pill, idx) => (
+            <span
+              key={idx}
+              className="text-xs px-2.5 py-1 rounded border"
+              style={{ borderColor: 'var(--line)', color: 'var(--muted)' }}
+            >
+              {pill}
+            </span>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-4">
+          <Link href={href}>
+            <motion.span
+              className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-medium"
+              style={{ color: 'var(--ink)' }}
+              whileHover={{ x: 3 }}
+            >
+              View Case Study <ArrowRight size={13} />
+            </motion.span>
+          </Link>
+          {liveUrl && (
+            <a
+              href={liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs transition-opacity hover:opacity-60"
+              style={{ color: 'var(--muted)' }}
+            >
+              Live site <ExternalLink size={11} />
+            </a>
+          )}
+        </div>
+      </div>
     </motion.div>
   )
 }

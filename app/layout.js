@@ -1,23 +1,26 @@
-import { Fraunces, DM_Sans } from 'next/font/google'
+import { Space_Grotesk, Inter } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 
-const fraunces = Fraunces({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  variable: '--font-serif',
-  weight: ['300', '400', '500'],
+  variable: '--font-display',
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
 })
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-sans',
+  variable: '--font-body',
   weight: ['300', '400', '500', '600'],
+  display: 'swap',
 })
 
 export const metadata = {
   title: 'Jahswill — Product Builder, PM & Designer',
-  description: 'Product Builder, Product Manager, and UI/UX Designer. I turn real business problems into structured, usable solutions — from the first research interview to the live URL.',
+  description:
+    'Product Builder, Product Manager, and UI/UX Designer. I turn real business problems into structured, usable solutions — from the first research interview to the live URL.',
   openGraph: {
     title: 'Jahswill — Product Builder',
     description: 'Thinking like a PM, designing like a designer, building like a founder.',
@@ -27,12 +30,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${dmSans.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body>
         <Nav />
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>

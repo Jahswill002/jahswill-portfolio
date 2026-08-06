@@ -141,7 +141,7 @@ export default function Projects() {
         >
           <div className="section-label">Projects</div>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <h2 className="font-serif">Products I've shaped & shipped.</h2>
+            <h2 className="font-serif">Products I&apos;ve shaped &amp; shipped.</h2>
             <p className="text-xs uppercase tracking-wider" style={{ color: 'var(--muted)' }}>
               6 projects
             </p>
