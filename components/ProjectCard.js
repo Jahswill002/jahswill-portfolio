@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ArrowRight, ExternalLink } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { DISCIPLINES } from '@/lib/data'
 
@@ -24,6 +25,7 @@ export default function ProjectCard({
   year,
   href,
   liveUrl,
+  screenshot,
   variant = 'default', // 'default' | 'featured' | 'index'
 }) {
   const accentColor = DISCIPLINES[discipline]?.cssVar ?? 'var(--accent)'
@@ -45,6 +47,18 @@ export default function ProjectCard({
       >
         {/* Discipline colour top bar */}
         <div className="h-1" style={{ backgroundColor: accentColor }} />
+
+        {/* Screenshot preview */}
+        {screenshot && (
+          <div className="relative w-full h-44 overflow-hidden border-b" style={{ borderColor: 'var(--line)' }}>
+            <Image
+              src={screenshot}
+              alt={`${title} preview`}
+              fill
+              className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+        )}
 
         <div className="p-6 md:p-8">
           {/* Status + year */}
@@ -116,9 +130,21 @@ export default function ProjectCard({
     >
       {/* Discipline accent left border */}
       <div
-        className="absolute left-0 top-0 bottom-0 w-1"
+        className="absolute left-0 top-0 bottom-0 w-1 z-10"
         style={{ backgroundColor: accentColor }}
       />
+
+      {/* Screenshot preview */}
+      {screenshot && (
+        <div className="relative w-full h-48 overflow-hidden border-b" style={{ borderColor: 'var(--line)' }}>
+          <Image
+            src={screenshot}
+            alt={`${title} preview`}
+            fill
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+      )}
 
       <div className="pl-6 pr-6 py-6 md:pl-8 md:pr-8 md:py-7">
         {/* Status + year */}
